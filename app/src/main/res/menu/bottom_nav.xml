@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title=""
+        android:id="@+id/PomodoroTimer"
+        android:icon="@drawable/clock_icon" />
+
+    <item android:title=""
+        android:id="@+id/timeline"
+        android:icon="@drawable/timeline_icon"/>
+
+    <item android:title=""
+        android:id="@+id/home"
+        android:icon="@drawable/round_home_24"
+        android:iconTint="#FF2B401D"/>
+
+    <item android:title=""
+        android:id="@+id/category"
+        android:icon="@drawable/category_icon"/>
+
+    <item android:title=""
+        android:id="@+id/Notifications"
+        android:icon="@drawable/notification_icon"/>
+
+</menu>

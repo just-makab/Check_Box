@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".AddTimeSheet">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Add Timesheet Entry"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/formView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            tools:context=".AddTimeSheet">
+
+
+            <Spinner
+                android:id="@+id/CategorySpinner"
+                android:layout_width="275dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/style_spinner"
+                android:dropDownWidth="275dp"
+                android:dropDownVerticalOffset="45dp"
+                android:popupBackground="@drawable/style_spinner_popup"
+                android:textAlignment="center"
+                android:textColor="#000000"
+                app:layout_constraintBottom_toTopOf="@+id/TaskTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <EditText
+                android:id="@+id/TaskTitle"
+                android:layout_width="275dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_input"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu"
+                android:hint="Title"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CategorySpinner" />
+
+            <EditText
+                android:id="@+id/Description"
+                android:layout_width="275dp"
+                android:layout_height="100sp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_input"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu"
+                android:gravity="start|top"
+                android:hint="Description"
+                android:inputType="textMultiLine"
+                android:lineSpacingExtra="10sp"
+                android:padding="10dp"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TaskTitle" />
+
+            <EditText
+                android:id="@+id/editTextDate"
+                android:layout_width="275dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_input"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/ubuntu"
+                android:hint="Date"
+                android:inputType="date"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Description" />
+
+            <EditText
+                android:id="@+id/editTextStartTime"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/custom_input"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/ubuntu"
+                android:hint="Start Time"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintEnd_toStartOf="@+id/editTextEndTime"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+
+            <EditText
+                android:id="@+id/editTextEndTime"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="68dp"
+                android:background="@drawable/custom_input"
+                android:ems="10"
+                android:focusable="false"
+                android:fontFamily="@font/ubuntu"
+                android:hint="End Time"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/editTextStartTime"
+                app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+
+            <ImageView
+                android:id="@+id/imagePreview"
+                android:layout_width="275dp"
+                android:layout_height="366dp"
+                android:layout_marginTop="10dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/no_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/editTextEndTime" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/CaptureButton"
+        android:layout_width="275dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#2B401D"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Upload image"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_camera"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="275dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#2B401D"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Save"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/BackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/BackButton"
+        style="@style/Widget.Material3.Button"
+        android:layout_width="275dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#2B401D"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Back"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveButton" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

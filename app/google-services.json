@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "190414781803",
+    "project_id": "checkbox-390db",
+    "storage_bucket": "checkbox-390db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:190414781803:android:074d180f908e887640e02e",
+        "android_client_info": {
+          "package_name": "com.example.checkbox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAF0decdHr-MeE4QHGq3ytSLzjxR2G9Qc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
