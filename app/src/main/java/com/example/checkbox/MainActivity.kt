@@ -19,12 +19,12 @@ import java.util.TimerTask
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var bottomNav: BottomNavigationView
-    private lateinit var timeDisplay : TextView
-    private lateinit var dateDisplay : TextView
-    private lateinit var minGoal : EditText
+    private lateinit var bottomNav: BottomNavigationView
+    private lateinit var timeDisplay: TextView
+    private lateinit var dateDisplay: TextView
+    private lateinit var minGoal: EditText
     private lateinit var maxGoal: EditText
-    private lateinit var saveGoal : Button
+    private lateinit var saveGoal: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         minGoal = findViewById(R.id.MinGoal)
         maxGoal = findViewById(R.id.MaxGoal)
         saveGoal = findViewById(R.id.SaveGoalBtn)
-
 
         saveGoal.setOnClickListener {
             val minGoalValue = minGoal.text.toString()
@@ -52,8 +51,13 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val minGoalInt = minGoalValue.toInt()
-            val maxGoalInt = maxGoalValue.toInt()
+            val minGoalInt = minGoalValue.toIntOrNull()
+            val maxGoalInt = maxGoalValue.toIntOrNull()
+
+            if (minGoalInt == null || maxGoalInt == null) {
+                Toast.makeText(this, "Goals must be valid numbers", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
             if (minGoalInt >= maxGoalInt) {
                 maxGoal.error = "Maximum goal must be greater than minimum goal"
@@ -76,47 +80,59 @@ class MainActivity : AppCompatActivity() {
             val userId = FirebaseAuth.getInstance().currentUser?.uid
             userId?.let { uid ->
                 val db = FirebaseFirestore.getInstance()
-                val userGoalsRef = db.collection("users").document(uid).collection("goals").document("user_goals")
+                val userGoalsRef = db.collection("users").document(uid).collection("goals")
 
-                val goalData = HashMap<String, Any>()
-                goalData["userId"] = uid
-                goalData["minGoal"] = minGoalValue
-                goalData["maxGoal"] = maxGoalValue
+                val goalData = hashMapOf(
+                    "userId" to uid,
+                    "minGoal" to minGoalInt,
+                    "maxGoal" to maxGoalInt
+                ) as Map<String, Any>
 
                 userGoalsRef.get()
-                    .addOnSuccessListener { document ->
-                        if (document.exists()) {
-                            userGoalsRef.update(goalData as Map<String, Any>)
+                    .addOnSuccessListener { snapshot ->
+                        if (snapshot.isEmpty) {
+                            userGoalsRef.add(goalData)
                                 .addOnSuccessListener {
-                                    Toast.makeText(this, "Good luck on achieving your Goal :)", Toast.LENGTH_SHORT).show()
+                                    runOnUiThread {
+                                        Toast.makeText(this, "Goal information saved successfully", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
-                                .addOnFailureListener { e ->
-                                    Toast.makeText(this, "Failed to update goal information", Toast.LENGTH_SHORT).show()
+                                .addOnFailureListener {
+                                    runOnUiThread {
+                                        Toast.makeText(this, "Failed to save goal information", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
                         } else {
-                            userGoalsRef.set(goalData)
+                            val goalDocument = snapshot.documents[0]
+                            val goalId = goalDocument.id
+                            val docRef = userGoalsRef.document(goalId)
+                            docRef.update(goalData)
                                 .addOnSuccessListener {
-                                    Toast.makeText(this, "Goal information saved successfully", Toast.LENGTH_SHORT).show()
+                                    runOnUiThread {
+                                        Toast.makeText(this, "Goal information updated successfully", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
-                                .addOnFailureListener { e ->
-                                    Toast.makeText(this, "Failed to save goal information", Toast.LENGTH_SHORT).show()
+                                .addOnFailureListener {
+                                    runOnUiThread {
+                                        Toast.makeText(this, "Failed to update goal information", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
+                        }
+                    }
+                    .addOnFailureListener {
+                        runOnUiThread {
+                            Toast.makeText(this, "An error occurred. Please try again later.", Toast.LENGTH_SHORT).show()
                         }
                     }
             }
         }
 
-
-
-
         dateDisplay = findViewById(R.id.DateDisplay)
         timeDisplay = findViewById(R.id.TimeDisplay)
         updateTime()
 
-
-
         val timer = Timer()
-        timer.scheduleAtFixedRate(object : TimerTask() {
+        timer.schedule(object : TimerTask() {
             override fun run() {
                 runOnUiThread {
                     updateTime()
@@ -124,47 +140,39 @@ class MainActivity : AppCompatActivity() {
             }
         }, 0, 60000)
 
-
         bottomNav = findViewById(R.id.bottomNavigationView)
-
         when (this::class.java) {
             MainActivity::class.java -> bottomNav.menu.findItem(R.id.home).isChecked = true
         }
-        bottomNav.setOnItemSelectedListener {menuItem ->
+        bottomNav.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.home -> {
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, MainActivity::class.java))
                     finish()
                     true
                 }
                 R.id.category -> {
-                    val intent = Intent(this, Category::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, Category::class.java))
                     finish()
                     true
                 }
                 R.id.timeline -> {
-                    val intent = Intent(this, Timeline::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, Timeline::class.java))
                     finish()
                     true
                 }
-                else -> {false}
+                else -> false
             }
         }
-
     }
 
-    private fun  updateTime() {
+    private fun updateTime() {
         val currentTime = Calendar.getInstance()
         val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        val formattedTime = timeFormat.format(currentTime)
+        val formattedTime = timeFormat.format(currentTime.time)
         timeDisplay.text = formattedTime
         val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val formattedDate = dateFormat.format(currentTime)
+        val formattedDate = dateFormat.format(currentTime.time)
         dateDisplay.text = formattedDate
-
     }
-
 }

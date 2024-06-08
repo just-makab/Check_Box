@@ -25,8 +25,9 @@ class Category : AppCompatActivity() {
     private lateinit var fAuth: FirebaseAuth
     private lateinit var fStore: FirebaseFirestore
 
-    lateinit var bottomNav: BottomNavigationView
+    private lateinit var bottomNav: BottomNavigationView
     private lateinit var addCategoryButton: Button
+    private lateinit var searchButton: Button
     private lateinit var textDate: EditText
     private lateinit var timeDisplay: TextView
     private lateinit var dateDisplay: TextView
@@ -57,6 +58,24 @@ class Category : AppCompatActivity() {
         populateSpinner()
 
         totalTimeTextView = findViewById(R.id.totalTime)
+
+        searchButton = findViewById(R.id.searchButton)
+        searchButton.setOnClickListener {
+            val selectedCategory = spinner.selectedItem.toString()
+            val selectedDate = textDate.text.toString()
+
+            if (selectedCategory == "Select a category") {
+                Toast.makeText(this, "Please select a category", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (selectedDate.isEmpty()) {
+                Toast.makeText(this, "Please select a date", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            calculateTotalTimeForCategory(selectedCategory)
+        }
 
         bottomNav = findViewById(R.id.bottomNavigationView)
 
@@ -165,8 +184,11 @@ class Category : AppCompatActivity() {
 
     private fun calculateTotalTimeForCategory(category: String) {
         val userId = fAuth.currentUser?.uid ?: return
+        val selectedDate = textDate.text.toString()
+
         fStore.collection("users").document(userId).collection("timeSheets")
             .whereEqualTo("category", category)
+            .whereEqualTo("date", selectedDate)
             .get()
             .addOnSuccessListener { documents ->
                 var totalMinutes = 0
@@ -184,7 +206,7 @@ class Category : AppCompatActivity() {
         val hours = totalMinutes / 60
         val minutes = totalMinutes % 60
         totalTimeTextView.text = if (totalMinutes > 0) {
-            "Total Hours: $hours Hours, $minutes Minutes"
+            " $hours Hours\n $minutes Minutes"
         } else {
             "Nothing done yet"
         }
