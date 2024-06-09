@@ -161,6 +161,16 @@ class MainActivity : AppCompatActivity() {
                     finish()
                     true
                 }
+                R.id.notifications -> {
+                    startActivity(Intent(this, Notification::class.java))
+                    finish()
+                    true
+                }
+                R.id.pomodoroTimer -> {
+                    startActivity(Intent(this, PomodoroTimer::class.java))
+                    finish()
+                    true
+                }
                 else -> false
             }
         }

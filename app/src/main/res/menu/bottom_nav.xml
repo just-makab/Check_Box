@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:title=""
-        android:id="@+id/PomodoroTimer"
+        android:id="@+id/pomodoroTimer"
         android:icon="@drawable/clock_icon" />
 
     <item android:title=""
@@ -19,7 +19,7 @@
         android:icon="@drawable/category_icon"/>
 
     <item android:title=""
-        android:id="@+id/Notifications"
+        android:id="@+id/notifications"
         android:icon="@drawable/notification_icon"/>
 
 </menu>
