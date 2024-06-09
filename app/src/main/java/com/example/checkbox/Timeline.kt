@@ -22,7 +22,7 @@ import java.util.Locale
 
 class Timeline : AppCompatActivity() {
 
-    lateinit var bottomNav: BottomNavigationView
+    private lateinit var bottomNav: BottomNavigationView
     private lateinit var addTimeSheetButton: Button
     private lateinit var textDate: EditText
     private lateinit var timeDisplay: TextView

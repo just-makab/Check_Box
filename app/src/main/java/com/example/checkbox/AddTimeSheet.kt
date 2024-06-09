@@ -239,20 +239,43 @@ class AddTimeSheet : AppCompatActivity() {
         )
 
         userId?.let { uid ->
-            val timesheetCollection = fStore.collection("users").document(uid).collection("timeSheets")
+            val timesheetCollection =
+                fStore.collection("users").document(uid).collection("timeSheets")
             timesheetCollection
-            .add(timeSheetEntry)
-            .addOnSuccessListener {
-                val hoursWorked = totalMinutes / 60
-                Toast.makeText(this, "Well done on completing $hoursWorked hours :)", Toast.LENGTH_LONG).show()
-                saveButton.isEnabled = true
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "something went wrong :( $exception", Toast.LENGTH_SHORT).show()
-                saveButton.isEnabled = true
-            }
+                .add(timeSheetEntry)
+                .addOnSuccessListener {
+                    val date = textDate.text.toString()
+                    updateDailyTotal(uid, date, totalMinutes)
+                    val hoursWorked = totalMinutes / 60
+                    Toast.makeText(
+                        this,
+                        "Well done on completing $hoursWorked hours :)",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    saveButton.isEnabled = true
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, "something went wrong :( $exception", Toast.LENGTH_SHORT)
+                        .show()
+                    saveButton.isEnabled = true
+                }
         }
+    }
 
+    private fun updateDailyTotal(userId: String, date: String, minutes: Int) {
+        val dailyTotalRef = fStore.collection("users").document(userId).collection("dailyTotals").document(date)
+
+        dailyTotalRef.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                val currentTotal = document.getLong("totalMinutes") ?: 0
+                dailyTotalRef.update("totalMinutes", currentTotal + minutes)
+            } else {
+                val newTotal = hashMapOf("totalMinutes" to minutes)
+                dailyTotalRef.set(newTotal)
+            }
+        }.addOnFailureListener { exception ->
+            Toast.makeText(this, "Failed to update daily total: $exception", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun calculateDifference(): Int {
