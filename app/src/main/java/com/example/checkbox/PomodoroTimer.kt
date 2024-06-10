@@ -48,7 +48,6 @@ class PomodoroTimer : AppCompatActivity() {
             addExtraTime()
         }
 
-
         bottomNav = findViewById(R.id.bottomNavigationView)
         when (this::class.java) {
             PomodoroTimer::class.java -> bottomNav.menu.findItem(R.id.pomodoroTimer).isChecked = true
@@ -145,21 +144,23 @@ class PomodoroTimer : AppCompatActivity() {
         val progressBar = findViewById<ProgressBar>(R.id.pbTimer)
         progressBar.progress = timeProgress
         val totalTime = timeSelected * 1000
-        timeCountDown = object : CountDownTimer(totalTime - pauseOffsetL, 1000) {
-            override fun onTick(p0: Long) {
+        val remainingTime = totalTime - pauseOffsetL
+
+        timeCountDown = object : CountDownTimer(remainingTime, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
                 timeProgress++
-                pauseOffset = totalTime - p0
+                pauseOffset = totalTime - millisUntilFinished
                 progressBar.progress = timeSelected - timeProgress
                 val timeLeftTv: TextView = findViewById(R.id.tvTimeLeft)
-                timeLeftTv.text = (timeSelected - timeProgress).toString()
+                timeLeftTv.text = ((totalTime - pauseOffset) / 1000).toString()
 
                 // Calculate break times
-                val remainingTime = (timeSelected - timeProgress) * 1000
+                val remainingTime = (totalTime - pauseOffset) / 1000
                 val breakDuration = remainingTime / (breakCount + 1)
 
                 // Schedule breaks
                 for (i in 1..breakCount) {
-                    if (pauseOffset >= i * breakDuration) {
+                    if (timeProgress.toLong() == i * breakDuration) {
                         showToast("Time for a break!")
                         // Pause the timer
                         timePause()
