@@ -3,4 +3,14 @@
     <string name="home">HOME</string>
     <string name="category">CATEGORY</string>
     <string name="timeline">TIMELINE</string>
+    <string name="check_box_icon">Check Box Icon</string>
+    <string name="login_to_your_account">Login to your Account</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="loginBtn">Login</string>
+    <string name="new_here_create_an_account">New Here? Create an account :)</string>
+    <string name="register_title">Create your Account</string>
+    <string name="username">username</string>
+    <string name="registerBtn">Register</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
 </resources>

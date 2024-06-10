@@ -22,7 +22,7 @@ import java.util.Locale
 
 class Timeline : AppCompatActivity() {
 
-    lateinit var bottomNav: BottomNavigationView
+    private lateinit var bottomNav: BottomNavigationView
     private lateinit var addTimeSheetButton: Button
     private lateinit var textDate: EditText
     private lateinit var timeDisplay: TextView
@@ -39,12 +39,7 @@ class Timeline : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_timeline)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main))
-        { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
         fStore = FirebaseFirestore.getInstance()
 
         timesheetRecyclerView = findViewById(R.id.timesheetRecyclerView)
@@ -80,7 +75,16 @@ class Timeline : AppCompatActivity() {
                     finish()
                     true
                 }
-
+                R.id.notifications -> {
+                    startActivity(Intent(this, Notification::class.java))
+                    finish()
+                    true
+                }
+                R.id.pomodoroTimer -> {
+                    startActivity(Intent(this, PomodoroTimer::class.java))
+                    finish()
+                    true
+                }
                 else -> {
                     false
                 }

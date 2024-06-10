@@ -11,7 +11,7 @@
         android:id="@+id/DateDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="45dp"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/ubuntu"
         android:text="11:11"
@@ -38,14 +38,16 @@
         android:id="@+id/totalTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginEnd="85dp"
         android:fontFamily="@font/ubuntu_bold"
         android:text="Total time"
         android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/addCategoryButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CategorySpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/Hint"
+        app:layout_constraintVertical_bias="0.521" />
 
     <Spinner
         android:id="@+id/CategorySpinner"
@@ -87,14 +89,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="15dp"
         android:fontFamily="@font/ubuntu_bold"
         android:text="time spent"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/totalTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -120,13 +120,28 @@
 
     <Button
         android:id="@+id/addCategoryButton"
-        android:layout_width="190dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="10dp"
+        android:layout_width="160dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="8dp"
         android:backgroundTint="#2B401D"
         android:text="Create new Category"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/searchButton" />
+
+    <Button
+        android:id="@+id/searchButton"
+        android:layout_width="160dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#2B401D"
+        android:text="Search"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toStartOf="@+id/addCategoryButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -138,5 +153,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_nav" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="202dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

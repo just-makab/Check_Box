@@ -1,48 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context=".Notification">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/DateDisplay"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        android:layout_marginTop="45dp"
+        android:fontFamily="@font/ubuntu"
+        android:text="11:11"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/TimeDisplay"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/titleET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Category" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/TimeDisplay"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Hello World"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DateDisplay" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Schedule a notification"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/categorySpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TimeDisplay" />
+
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/style_spinner"
+        android:dropDownWidth="275dp"
+        android:dropDownVerticalOffset="45dp"
+        android:popupBackground="@drawable/style_spinner_popup"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/messageET"
+        android:layout_width="275dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        android:hint="Message"
+        android:background="@drawable/custom_input"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:textSize="15sp"
+        android:fontFamily="@font/ubuntu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categorySpinner"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/messageET"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Message" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/FilterText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/ubuntu_bold"
+        android:text="Schedule date"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/messageET"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/FilterText"
+        android:layout_marginHorizontal="20dp">
 
         <DatePicker
             android:id="@+id/datePicker"
@@ -51,12 +110,10 @@
             android:layout_height="wrap_content"
             android:datePickerMode="spinner"
             android:calendarViewShown="false"
-            android:layout_gravity="center"
             android:scaleY="0.7"
             android:scaleX="0.7"
             android:layout_marginLeft="-30dp"
-            android:layout_marginRight="-30dp"
-            />
+            android:layout_marginRight="-30dp" />
 
         <TimePicker
             android:id="@+id/timePicker"
@@ -64,7 +121,6 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:timePickerMode="spinner"
-            android:layout_gravity="center"
             android:scaleY="0.7"
             android:scaleX="0.7"
             android:layout_marginLeft="-30dp"
@@ -73,10 +129,24 @@
 
     <Button
         android:id="@+id/submitButton"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:text="schedule Notification"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="#2B401D"
+        android:text="Schedule Notification"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_nav"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

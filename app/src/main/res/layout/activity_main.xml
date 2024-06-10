@@ -11,7 +11,7 @@
         android:id="@+id/DateDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="45dp"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/ubuntu"
         android:text="11:11"
@@ -29,19 +29,169 @@
         android:fontFamily="@font/ubuntu_bold"
         android:text="Hello World"
         android:textSize="50sp"
-        app:layout_constraintBottom_toTopOf="@+id/Goal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DateDisplay" />
 
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="410dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="vertical"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/Goal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TimeDisplay">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:orientation="vertical">
+
+                <!-- Label for Bar Chart -->
+                <TextView
+                    android:id="@+id/barChartLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:padding="7dp"
+                    android:text="30 day Progress"
+                    android:textSize="16sp" />
+
+                <!-- Bar Chart -->
+                <com.github.mikephil.charting.charts.HorizontalBarChart
+                    android:id="@+id/chart"
+                    android:layout_width="360dp"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:visibility="gone" />
+
+                <!-- Refresh Button for Bar Chart -->
+                <Button
+                    android:id="@+id/displayChartButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="120dp"
+                    android:backgroundTint="#2B401D"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:text="Display Progress" />
+
+
+                <TextView
+                    android:id="@+id/lineChartLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:padding="8dp"
+                    android:text="Work breakdown"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+
+                    <EditText
+                        android:id="@+id/startDate"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_input"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:fontFamily="@font/ubuntu"
+                        android:hint="Start Date"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:fontFamily="@font/ubuntu_bold"
+                        android:text="_" />
+
+                    <EditText
+                        android:id="@+id/endDate"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_margin="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_input"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:fontFamily="@font/ubuntu"
+                        android:hint="End Date"
+                        android:paddingStart="10dp"
+                        android:paddingEnd="10dp"
+
+                        android:textSize="15sp" />
+
+                </LinearLayout>
+
+                <!-- Line Chart -->
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/lineChart"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_margin="10dp"
+                    android:visibility="gone" />
+
+                <!-- Refresh Button for Line Chart -->
+                <Button
+                    android:id="@+id/displayLineChartButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginBottom="1dp"
+                    android:backgroundTint="#2B401D"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:text="Display Line Chart" />
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/Goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:fontFamily="@font/ubuntu"
+        android:text="Set daily goal"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
         android:id="@+id/MinGoal"
-        android:layout_width="0dp"
+        android:layout_width="90dp"
         android:layout_height="50dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="5dp"
         android:background="@drawable/custom_input"
         android:drawablePadding="10dp"
         android:ems="10"
@@ -58,11 +208,12 @@
 
     <EditText
         android:id="@+id/MaxGoal"
-        android:layout_width="0dp"
+        android:layout_width="90dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="110dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/custom_input"
         android:drawablePadding="10dp"
         android:ems="10"
@@ -73,29 +224,19 @@
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/SaveGoalBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/MinGoal"
         app:layout_constraintTop_toBottomOf="@+id/Goal" />
 
-
-    <TextView
-        android:id="@+id/Goal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="21dp"
-        android:text="Set daily goal"
-        app:layout_constraintBottom_toTopOf="@+id/MinGoal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TimeDisplay" />
-
-
     <Button
         android:id="@+id/SaveGoalBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginEnd="111dp"
         android:backgroundTint="#2B401D"
+        android:fontFamily="@font/ubuntu_bold"
         android:text="Save Goal"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
